@@ -1,6 +1,6 @@
 import "./App.css";
 import "./Table.css";
-import { sortData } from "./utils.js";
+import { sortData, prettyPrintStat } from "./utils.js";
 import React, { useState, useEffect } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import { MenuItem, Select, Card, CardContent } from "@material-ui/core";
@@ -19,6 +19,7 @@ function App() {
   const [mapCenter, setMapCenter] = useState({ lat: 34.8076, lng: -40.4796 }); //center of pacific ocean points
   const [mapZoom, setMapZoom] = useState(3); // 3 is the zoom value where you can actually see the map
   const [mapCountries, setMapCountries] = useState([]);
+  const [casesType, setCasesType] = useState("cases"); // this state is created to keep track of cases
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -79,7 +80,7 @@ function App() {
       {/* contains left part of wireframe ie; div.app_left*/}
       <div className="app_left">
         <div className="app_header">
-          <h1>Covid19 Tracker</h1>
+          <h1>COVID-19 TRACKER</h1>
           <FormControl className="app_dropdown">
             <Select
               variant="outlined"
@@ -98,34 +99,47 @@ function App() {
        from infobox.js and Infobox comes from Material UI-------------------------------*/}
         <div className="app_stats">
           <Infobox
+            isRed
+            active={casesType === "cases"}
+            onClick={(e) => setCasesType("cases")}
             title="Covid cases"
-            cases={countryInfo.todayCases}
-            total={countryInfo.cases}
+            cases={prettyPrintStat(countryInfo.todayCases)}
+            total={prettyPrintStat(countryInfo.cases)}
           />
 
           <Infobox
+            active={casesType === "recovered"}
+            onClick={(e) => setCasesType("recovered")}
             title="Recovered"
-            cases={countryInfo.todayRecovered}
-            total={countryInfo.recovered}
+            cases={prettyPrintStat(countryInfo.todayRecovered)} //this prettyPrintStat gives you + sign
+            total={prettyPrintStat(countryInfo.recovered)}
           />
 
           <Infobox
+            isRed
+            active={casesType === "deaths"}
+            onClick={(e) => setCasesType("deaths")}
             title="Deaths"
-            cases={countryInfo.todayDeaths}
-            total={countryInfo.deaths}
+            cases={prettyPrintStat(countryInfo.todayDeaths)}
+            total={prettyPrintStat(countryInfo.deaths)}
           />
         </div>
 
         {/*------------------------------ This is the code for rendering Map ---------------------------*/}
-        <Map countries={mapCountries} center={mapCenter} zoom={mapZoom} />
+        <Map
+          casesType={casesType}
+          countries={mapCountries}
+          center={mapCenter}
+          zoom={mapZoom}
+        />
       </div>
       {/* contains right part of wireframe ie; app_right */}
       <Card className="app_right">
         <CardContent>
           <h3>Live cases by country</h3>
           <Table countries={tableData} />
-          <LineGraph />
-          <h3>Worldwide new cases</h3>
+          <h3>Worldwide new {casesType}</h3>
+          <LineGraph casesType={casesType} />
         </CardContent>
 
         {/* Table with countries */}

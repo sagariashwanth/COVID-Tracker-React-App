@@ -11,6 +11,10 @@ body {
   justify-content: space-evenly;
   padding: 20px;
 }
+.app_header > h1 {
+  color: #fc3c3c;
+  font-size: 2rem;
+}
 .app_header {
   display: flex;
   align-items: center;

@@ -1,15 +1,25 @@
 import React from "react"; //type 'rfce' for react functional component
 import { Card, CardContent, Typography } from "@material-ui/core";
+import "./InfoBox.css";
 
-function infobox({ title, cases, total }) {
+// ...props means it includes/spreads whatever props we pass(ie;onClick from App.js infoBox section)
+function infobox({ title, cases, isRed, active, total, ...props }) {
   //title,cases and total are props
   return (
-    <Card className="infoBox">
+    <Card
+      onClick={props.onClick}
+      // if active then add infoBox--selected is the meaning for code below
+      className={`infoBox ${active && "infoBox--selected"} ${
+        isRed && "infoBox--red"
+      }`}
+    >
       <CardContent>
         <Typography className="infoBox_title" color="textSecondary">
           {title}
         </Typography>
-        <h2 className="infoBox_cases">{cases}</h2>
+        <h2 className={`infoBox_cases ${!isRed && "infoBox_cases--green"}`}>
+          {cases}
+        </h2>
         <Typography className="infoBox_total">{total} Total</Typography>
       </CardContent>
     </Card>
