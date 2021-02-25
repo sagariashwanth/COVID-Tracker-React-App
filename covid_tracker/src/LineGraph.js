@@ -69,7 +69,8 @@ const buildChartData = (data, casesType = "cases") => {
   return chartData;
 };
 
-function LineGraph({ casesType }) {
+function LineGraph({ casesType, ...props }) {
+  //...props is added as we added classname for linegraph in App.js
   const [data, setData] = useState({});
   useEffect(() => {
     const fetchData = async () => {
@@ -86,7 +87,7 @@ function LineGraph({ casesType }) {
   //---------For table graph we need to resolve data as x-axis with date and y-axis as no of cases----------//
 
   return (
-    <div>
+    <div className={props.className}>
       {data?.length > 0 && ( //optional chaining ie;checks if data is available or not
         <Line
           options={options}

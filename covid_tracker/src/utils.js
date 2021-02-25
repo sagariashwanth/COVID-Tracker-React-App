@@ -31,10 +31,6 @@ export const sortData = (data) => {
   return sortedData;
 };
 
-//-------------this will be used in App.js (infoBoxes)--------------------------------------------------//
-export const prettyPrintStat = (stat) =>
-  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
-
 //----------------Method two of sort--------------------------------------------------//
 // return sortedData.sort((a,b) => (a.cases > b.cases ? -1 : 1));
 
@@ -74,3 +70,6 @@ export const showDataOnMap = (data, casesType = "cases") =>
       </Popup>
     </Circle>
   ));
+//-------------this will be used in App.js (infoBoxes)--------------------------------------------------//
+export const prettyPrintStat = (stat) =>
+  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
