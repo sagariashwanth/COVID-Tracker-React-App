@@ -46,7 +46,7 @@ const options = {
   },
 };
 
-const buildChartData = (data, casesType = "cases") => {
+const buildChartData = (data, casesType) => {
   //we have given casesType becoz if we need recovered/deaths ,
   //we can easily change it and fetch data
   let chartData = [];
@@ -77,7 +77,7 @@ function LineGraph({ casesType, ...props }) {
       await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
         .then((response) => response.json())
         .then((data) => {
-          const chartData = buildChartData(data);
+          let chartData = buildChartData(data, casesType);
           setData(chartData);
         });
     };
@@ -90,7 +90,6 @@ function LineGraph({ casesType, ...props }) {
     <div className={props.className}>
       {data?.length > 0 && ( //optional chaining ie;checks if data is available or not
         <Line
-          options={options}
           data={{
             datasets: [
               {
@@ -100,6 +99,7 @@ function LineGraph({ casesType, ...props }) {
               },
             ],
           }}
+          options={options}
         ></Line>
       )}
     </div>

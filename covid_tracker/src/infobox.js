@@ -3,7 +3,7 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 import "./InfoBox.css";
 
 // ...props means it includes/spreads whatever props we pass(ie;onClick from App.js infoBox section)
-function infobox({ title, cases, isRed, active, total, ...props }) {
+function InfoBox({ title, cases, isRed, active, total, ...props }) {
   //title,cases and total are props
   return (
     <Card
@@ -26,4 +26,4 @@ function infobox({ title, cases, isRed, active, total, ...props }) {
   );
 }
 
-export default infobox;
+export default InfoBox;

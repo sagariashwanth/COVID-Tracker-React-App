@@ -9,41 +9,45 @@ body {
 .app {
   display: flex;
   justify-content: space-evenly;
+  background-color: #f5f6fa;
   padding: 20px;
 }
-.app_dropdown {
-  background-color: white;
-}
-.app_header > h1 {
-  color: #fc3c3c;
-  font-size: 2rem;
-}
+
 .app_header {
   display: flex;
-  align-items: center;
-  margin: 20px;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
-
-/* Here 0.9 indicates that app_left occupies 90% of the whole screen */
-.app_left {
-  flex: 0.9;
-}
-
 .app_stats {
   display: flex;
   justify-content: space-between;
 }
 
+.app_dropdown {
+  background-color: white;
+}
+
+.app_header > h1 {
+  color: #fc3c3c;
+  font-size: 2rem;
+}
+
+.app_left {
+  flex: 0.9;
+}
 .app_right {
   display: flex;
   flex-direction: column;
 }
+
 .app_graph {
   flex-grow: 1;
 }
+
 .app_graphTitle {
   margin-top: 20px;
+  margin-bottom: 20pxf;
 }
 .app_right .MuiCardContent-root {
   display: flex;
@@ -51,7 +55,6 @@ body {
   flex-grow: 1;
 }
 
-/* media query is used to bring responsive UI */
 @media (max-width: 990px) {
   .app {
     flex-direction: column;

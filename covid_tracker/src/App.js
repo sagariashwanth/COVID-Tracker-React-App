@@ -4,11 +4,12 @@ import { sortData, prettyPrintStat } from "./utils.js";
 import React, { useState, useEffect } from "react";
 import FormControl from "@material-ui/core/FormControl";
 import { MenuItem, Select, Card, CardContent } from "@material-ui/core";
-import Infobox from "./infobox";
+import InfoBox from "./InfoBox";
 import Map from "./Map.js";
 import Table from "./Table.js";
 import LineGraph from "./LineGraph.js";
 import "leaflet/dist/leaflet.css"; //for Map
+import numeral from "numeral";
 
 // ----------------This is the code for dropdown with countries-------------------------------
 function App() {
@@ -41,7 +42,7 @@ function App() {
             name: country.country,
             value: country.countryInfo.iso2,
           }));
-          const sortedData = sortData(data);
+          let sortedData = sortData(data);
           settableData(sortedData); //entire table data is sorted by cases.
           setMapCountries(data);
           setCountries(countries);
@@ -54,7 +55,7 @@ function App() {
     // coutryCode is the variable for storing the country you click everytime and then you set it to setCountry
     // which was initially set to worldwide
     const countryCode = event.target.value;
-    setCountry(countryCode);
+    //setCountry(countryCode);
 
     //--------you have 2 options as worldwide and list of countries in your dropdown
     // so here you are using ternary operator to choose different API url depending upon option user clicks---------
@@ -98,30 +99,30 @@ function App() {
         {/* ------------------------------------The 3 statistics box and we import component
        from infobox.js and Infobox comes from Material UI-------------------------------*/}
         <div className="app_stats">
-          <Infobox
-            isRed
-            active={casesType === "cases"}
+          <InfoBox
             onClick={(e) => setCasesType("cases")}
             title="Covid cases"
+            isRed
+            active={casesType === "cases"}
             cases={prettyPrintStat(countryInfo.todayCases)}
-            total={prettyPrintStat(countryInfo.cases)}
+            total={prettyPrintStat(numeral(countryInfo.cases))}
           />
 
-          <Infobox
-            active={casesType === "recovered"}
+          <InfoBox
             onClick={(e) => setCasesType("recovered")}
             title="Recovered"
+            active={casesType === "recovered"}
             cases={prettyPrintStat(countryInfo.todayRecovered)} //this prettyPrintStat gives you + sign
-            total={prettyPrintStat(countryInfo.recovered)}
+            total={prettyPrintStat(numeral(countryInfo.recovered))}
           />
 
-          <Infobox
-            isRed
-            active={casesType === "deaths"}
+          <InfoBox
             onClick={(e) => setCasesType("deaths")}
             title="Deaths"
+            isRed
+            active={casesType === "deaths"}
             cases={prettyPrintStat(countryInfo.todayDeaths)}
-            total={prettyPrintStat(countryInfo.deaths)}
+            total={prettyPrintStat(numeral(countryInfo.deaths))}
           />
         </div>
 

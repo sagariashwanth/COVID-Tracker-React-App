@@ -11,13 +11,21 @@
   height: 100%;
 }
 
-/* These are for popup you find in circle inside Map */
+.info-flag img {
+  width: 100px;
+  border-radius: 5px;
+}
 
 .info-name {
   font-size: 20px;
   font-weight: bold;
   color: #555;
 }
+
+.info-container {
+  width: 150px;
+}
+
 .info-flag {
   height: 80px;
   width: 100%;
@@ -30,8 +38,4 @@
 .info-deaths {
   font-size: 16px;
   margin-top: 5px;
-}
-.info-flag img {
-  width: 100px;
-  border-radius: 5px;
 }
